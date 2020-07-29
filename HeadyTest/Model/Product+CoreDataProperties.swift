@@ -2,7 +2,7 @@
 //  Product+CoreDataProperties.swift
 //  
 //
-//  Created by Ashok Mahawar on 27/07/20.
+//  Created by Abhishek Kumar on 27/07/20.
 //
 //
 
@@ -17,26 +17,29 @@ extension Product {
     }
 
     @NSManaged public var id: Int16
+    @NSManaged public var viewCount: Double
+    @NSManaged public var shareCount: Double
+    @NSManaged public var orderCount: Double
     @NSManaged public var name: String?
     @NSManaged public var dateAdded: String?
     @NSManaged public var category: Product?
-    @NSManaged public var varients: NSSet?
+    @NSManaged public var variants: NSSet?
 
 }
 
-// MARK: Generated accessors for varients
+// MARK: Generated accessors for variants
 extension Product {
 
-    @objc(addVarientsObject:)
-    @NSManaged public func addToVarients(_ value: Varient)
+    @objc(addVariantsObject:)
+    @NSManaged public func addToVariants(_ value: Variant)
 
-    @objc(removeVarientsObject:)
-    @NSManaged public func removeFromVarients(_ value: Varient)
+    @objc(removeVariantsObject:)
+    @NSManaged public func removeFromVariants(_ value: Variant)
 
-    @objc(addVarients:)
-    @NSManaged public func addToVarients(_ values: NSSet)
+    @objc(addVariants:)
+    @NSManaged public func addToVariants(_ values: NSSet)
 
-    @objc(removeVarients:)
-    @NSManaged public func removeFromVarients(_ values: NSSet)
+    @objc(removeVariants:)
+    @NSManaged public func removeFromVariants(_ values: NSSet)
 
 }

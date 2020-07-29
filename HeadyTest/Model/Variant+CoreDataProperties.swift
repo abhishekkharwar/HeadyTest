@@ -1,8 +1,8 @@
 //
-//  Varient+CoreDataProperties.swift
+//  Variant+CoreDataProperties.swift
 //  
 //
-//  Created by Ashok Mahawar on 27/07/20.
+//  Created by Abhishek Kumar on 27/07/20.
 //
 //
 
@@ -10,10 +10,10 @@ import Foundation
 import CoreData
 
 
-extension Varient {
+extension Variant {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Varient> {
-        return NSFetchRequest<Varient>(entityName: "Varient")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<Variant> {
+        return NSFetchRequest<Variant>(entityName: "Variant")
     }
 
     @NSManaged public var id: Int16

@@ -1,16 +1,16 @@
 //
-//  Varient+CoreDataClass.swift
+//  Variant+CoreDataClass.swift
 //  
 //
-//  Created by Ashok Mahawar on 27/07/20.
+//  Created by Abhishek Kumar on 27/07/20.
 //
 //
 
 import Foundation
 import CoreData
 
-@objc(Varient)
-public class Varient: NSManagedObject {
+@objc(Variant)
+public class Variant: NSManagedObject {
     
     
 }

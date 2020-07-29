@@ -1,8 +1,8 @@
 //
 //  Parser.swift
-//  AngelBTestCode
+//  HeadyTest
 //
-//  Created by Abhishek Kumar on 27/04/20.
+//  Created by Abhishek Kumar on 27/07/20.
 //  Copyright © 2020 Abhishek Kumar. All rights reserved.
 //
 
@@ -17,7 +17,7 @@ struct Parser <T>{
             let users = try decoder.decode(T.self, from: data)
             return users
         } catch {
-            print(error.localizedDescription)
+            print(error)
         }
         return nil
     }

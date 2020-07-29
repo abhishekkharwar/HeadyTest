@@ -8,33 +8,43 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class DashboardViewController: UIViewController {
 
-    let handler = Handler()
+    @IBOutlet private weak var dashboardTableView: UITableView!
+    private var tableViewdataSource :DashboardTableViewDataSource<ProductTableViewCell, Category>!
+    private var dashboardViewModel :DashboardViewModel!
+
+    var handler = Handler()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
-        
-        handler.fetchData { (response) in
-            if let categories = response
-            {
-                for category in categories
-                {
-                    if let products = category.products?.allObjects as? [Product]
-                    {
-                        for product in products
-                        {
-                            print("Category = \(category.name!), Product = \(product.name!)" as Any)
-                        }
+        self.handler = Handler()
+        self.dashboardViewModel = DashboardViewModel(handler: handler)
+        self.dashboardViewModel.bindToSourceViewModels = {
+            self.updateDataSource()
+        }
+        dashboardViewModel.fetchData()
+    }
+
+    private func updateDataSource() {
+        self.tableViewdataSource = DashboardTableViewDataSource(cellIdentifier: Cells.ProductCell, items: self.dashboardViewModel.categories, configureCell: { (cell, model, index) in
+            if let products = model.products{
+                if let product = products.allObjects[index] as? Product{
+                    cell.nameLabel.text = product.name
+                    if let dateAdded = product.dateAdded{
+                        cell.dateCreated.text = "Date Added: \(dateAdded)"
                     }
                 }
             }
-        }
-        
+        }, configureSection: { (cateogry) -> (String) in
+            return cateogry.name ?? ""
+        }, configureSectionItemCount: { (category) -> (Int) in
+            category.products!.count
+        })
+        self.dashboardTableView.dataSource = self.tableViewdataSource
+        self.dashboardTableView.reloadData()
     }
-
 
 }
 
