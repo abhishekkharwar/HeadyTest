@@ -11,6 +11,6 @@ import UIKit
 
 class ProductTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var taxLabel: UILabel!
+    @IBOutlet weak var rankingLabel: UILabel!
     @IBOutlet weak var dateCreated: UILabel!    
 }

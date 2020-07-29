@@ -80,7 +80,6 @@ class DatabaseManager: NSObject {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName)
         
         fetchRequest.predicate = predicate
-        
         var resultArray = [NSManagedObject]()
         
         let context = persistentContainer.viewContext

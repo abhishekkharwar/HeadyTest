@@ -8,6 +8,10 @@
 
 import Foundation
 
+enum RankingType:Int{
+    case All = 0, MostViewed, MostOrdered, MostShared
+}
+
 class Handler {
     let webservice = Webservice()
     let parser = Parser<ServerResponse>()
@@ -34,9 +38,21 @@ class Handler {
         }
     }
     
-    func fetchLocalData(completion :@escaping ([Category]?) -> ()) {
-        if let categories = self.databaseManager.fetchObjectsFromEntity(entityName: DBEntity.Category, predicate: nil) as? [Category]{
-            completion(categories)
+    func fetchLocalData(rankingType: RankingType,completion :@escaping ([Product]?) -> ()) {
+        var predicate: NSPredicate?
+        switch rankingType {
+        case .MostViewed:
+            predicate = NSPredicate(format: "viewCount > 0.0")
+            case .MostOrdered:
+            predicate = NSPredicate(format: "orderCount > 0.0")
+            case .MostShared:
+            predicate = NSPredicate(format: "shareCount > 0.0")
+        default:
+            predicate = nil
+        }
+        
+        if let products = self.databaseManager.fetchObjectsFromEntity(entityName: DBEntity.Product, predicate: predicate) as? [Product]{
+            completion(products)
         }else{
             completion(nil)
         }
@@ -87,15 +103,13 @@ class Handler {
                         product.orderCount = Double(orderCount)
                     }
                     if let shareCount = rank.shareCount{
-                        product.orderCount = Double(shareCount)
+                        product.shareCount = Double(shareCount)
                     }
                     if let viewCount = rank.viewCount{
-                        product.orderCount = Double(viewCount)
+                        product.viewCount = Double(viewCount)
                     }
                 }
-            }
-            
-            
+            }            
         }
     }
     

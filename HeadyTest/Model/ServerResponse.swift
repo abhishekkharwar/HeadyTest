@@ -28,6 +28,6 @@ struct ProductRanking: Codable{
         case id
         case viewCount = "view_count"
         case orderCount = "order_count"
-        case shareCount = "share_count"
+        case shareCount = "shares"
     }
 }

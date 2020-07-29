@@ -14,29 +14,31 @@ class DashboardTableViewDataSource<Cell :ProductTableViewCell, Model> : NSObject
     private var cellIdentifier :String!
     private var items :[Model]!
     var configureCell :(Cell, Model, Int) -> ()
-    var configureSection :(Model) -> (String)
-    var configureSectionItemCount :(Model) -> (Int)
+    var configureSectionCount :() -> (Int)
+    var configureSection :(Int) -> (String)
+    var configureSectionItemCount :(Int) -> (Int)
 
-    init(cellIdentifier :String, items :[Model], configureCell: @escaping (Cell,Model, Int) -> (), configureSection: @escaping (Model) -> (String), configureSectionItemCount: @escaping (Model) -> (Int)) {
+    init(cellIdentifier :String, items :[Model], configureCell: @escaping (Cell,Model, Int) -> (), configureSection: @escaping (Int) -> (String), configureSectionItemCount: @escaping (Int) -> (Int), configureSectionCount: @escaping () -> (Int)) {
         self.cellIdentifier = cellIdentifier
         self.items = items
         self.configureCell = configureCell
         self.configureSection = configureSection
+        self.configureSectionCount = configureSectionCount
         self.configureSectionItemCount = configureSectionItemCount
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.items.count
+        return configureSectionCount()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let item = self.items[section]
-        return configureSectionItemCount(item)
+        //let item = self.items[section]
+        return configureSectionItemCount(section)
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let item = self.items[section]
-        return configureSection(item)
+        //let item = self.items[section]
+        return configureSection(section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -12,6 +12,7 @@ import Alamofire
 class DashboardViewModel : NSObject {
     
     private(set) var categories :[Category] = [Category]()
+    private(set) var products :[Product] = [Product]()
     var bindToSourceViewModels :(() -> ()) = {}
     var showErrorWithMessage :((_ message: String) -> ()) = {_ in }
     private var handler :Handler
@@ -38,6 +39,16 @@ class DashboardViewModel : NSObject {
         else
         {
             showErrorWithMessage(Messages.NoInternetErrorMessage)
+        }
+    }
+    
+    func fetchDataFromLocalDatabase(rankingType: RankingType){
+        self.handler.fetchLocalData(rankingType: rankingType) {[weak self] (products) in
+            if let productList = products
+            {
+                self?.products = productList
+                self?.bindToSourceViewModels()
+            }
         }
     }
     
